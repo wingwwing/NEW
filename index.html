@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gửi Crush của tớ</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #ffebee;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            text-align: center;
+        }
+        h1 { color: #d32f2f; margin-bottom: 20px; }
+        .buttons { display: flex; gap: 20px; position: relative; width: 300px; justify-content: center; }
+        button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border: none;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+        #yesBtn { background-color: #ff4081; color: white; }
+        #noBtn { background-color: #9e9e9e; color: white; position: absolute; }
+        #message { margin-top: 30px; display: none; }
+        #sadIcon { font-size: 100px; display: none; }
+        .heart { color: #ff4081; font-size: 50px; }
+    </style>
+</head>
+<body>
+
+    <div id="main-content">
+        <h1 id="question">Will you be my Valentine? ❤️</h1>
+        <div class="buttons">
+            <button id="yesBtn">CÓ 😍</button>
+            <button id="noBtn">KHÔNG 😢</button>
+        </div>
+    </div>
+
+    <div id="message">
+        <h1>YAYYY! Tớ biết mà! 🥰</h1>
+        <div class="heart">❤️</div>
+    </div>
+
+    <div id="sadIcon">😢</div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const mainContent = document.getElementById('main-content');
+        const message = document.getElementById('message');
+        const sadIcon = document.getElementById('sadIcon');
+
+        // Hàm làm nút NO chạy lung tung
+        noBtn.addEventListener('mouseover', () => {
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
+        });
+
+        // Nếu bằng cách thần kỳ nào đó họ vẫn ấn được nút NO
+        noBtn.addEventListener('click', () => {
+            mainContent.style.display = 'none';
+            sadIcon.style.display = 'block';
+            alert("Ơ, sao cậu lại ấn được hay vậy... nhưng vẫn không được đâu! 😢");
+        });
+
+        // Khi ấn nút YES
+        yesBtn.addEventListener('click', () => {
+            mainContent.style.display = 'none';
+            message.style.display = 'block';
+            // Có thể thêm hiệu ứng pháo hoa ở đây
+        });
+    </script>
+</body>
+</html>
