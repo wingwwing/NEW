@@ -3,85 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gửi Crush của tớ</title>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background-color: #ffebee;
-            font-family: 'Arial', sans-serif;
-            overflow: hidden;
-            text-align: center;
-        }
-        h1 { color: #d32f2f; margin-bottom: 20px; }
-        .buttons { display: flex; gap: 20px; position: relative; width: 300px; justify-content: center; }
-        button {
-            padding: 15px 30px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            border: none;
-            border-radius: 10px;
-            transition: 0.3s;
-        }
-        #yesBtn { background-color: #ff4081; color: white; }
-        #noBtn { background-color: #9e9e9e; color: white; position: absolute; }
-        #message { margin-top: 30px; display: none; }
-        #sadIcon { font-size: 100px; display: none; }
-        .heart { color: #ff4081; font-size: 50px; }
-    </style>
+    <title>For U my dear;333</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div id="main-content">
         <h1 id="question">Will you be my Valentine? ❤️</h1>
         <div class="buttons">
-            <button id="yesBtn">CÓ 😍</button>
-            <button id="noBtn">KHÔNG 😢</button>
+            <button id="yesBtn">YES 😍</button>
+            <button id="noBtn">NO 😢</button>
         </div>
     </div>
 
     <div id="message">
-        <h1>YAYYY! Tớ biết mà! 🥰</h1>
+        <h1>YAYYY! HIIIIIHI! 🥰</h1>
         <div class="heart">❤️</div>
     </div>
 
-    <div id="sadIcon">😢</div>
-
     <script>
-    const noBtn = document.getElementById('noBtn');
-    const yesBtn = document.getElementById('yesBtn');
-    const mainContent = document.getElementById('main-content');
-    const message = document.getElementById('message');
-    const sadIcon = document.getElementById('sadIcon');
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const mainContent = document.getElementById('main-content');
+        const message = document.getElementById('message');
 
-    // Hàm làm nút NO chạy lung tung NHƯNG không ra ngoài màn hình
-    noBtn.addEventListener('mouseover', () => {
-        // Trừ đi kích thước nút để nó không bị lấp ló ở mép màn hình
-        const maxX = window.innerWidth - noBtn.offsetWidth - 20; 
-        const maxY = window.innerHeight - noBtn.offsetHeight - 20;
-        
-        // Đảm bảo giá trị ngẫu nhiên tối thiểu là 10px để không sát mép trái/trên
-        const x = Math.max(10, Math.random() * maxX);
-        const y = Math.max(10, Math.random() * maxY);
-        
-        noBtn.style.left = `${x}px`;
-        noBtn.style.top = `${y}px`;
-    });
+        function moveButton() {
+        // Tính toán kích thước vùng an toàn
+        // Trừ đi kích thước nút và một khoảng lề (padding) 50px cho chắc chắn
+        const padding = 50;
+        const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+        const maxY = window.innerHeight - noBtn.offsetHeight - padding;
 
-    // Xử lý khi ấn nút
-    noBtn.addEventListener('click', () => {
-        mainContent.style.display = 'none';
-        sadIcon.style.display = 'block';
-        alert("Vẫn không được đâu! 😢");
-    });
+        // Tính toán tọa độ ngẫu nhiên mới trong phạm vi màn hình
+        // Math.floor giúp lấy số nguyên để trình duyệt render chính xác hơn
+        const randomX = Math.floor(Math.random() * (maxX - padding) + padding);
+        const randomY = Math.floor(Math.random() * (maxY - padding) + padding);
 
-    yesBtn.addEventListener('click', () => {
-        mainContent.style.display = 'none';
-        message.style.display = 'block';
-    });
-</script>
+        // Gán tọa độ mới trực tiếp vào style
+        noBtn.style.left = randomX + 'px';
+        noBtn.style.top = randomY + 'px';
+    }
+        noBtn.addEventListener('mouseover', moveButton);
+        noBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            moveButton();
+        });
+        yesBtn.addEventListener('click', () => {
+            mainContent.style.display = 'none';
+            message.style.display = 'block';
+            noBtn.style.display = 'none';
+        });
+    </script>
 </body>
 </html>

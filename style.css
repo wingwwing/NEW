@@ -1,0 +1,101 @@
+:root {
+    --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --primary-pink: #ff4d6d;
+    --text-white: #ffffff;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: var(--bg-gradient);
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    overflow: hidden;
+    text-align: center;
+    margin: 0;
+    color: var(--text-white);
+}
+
+#main-content {
+    background: var(--glass-bg);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 50px 30px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    max-width: 85%;
+    z-index: 1;
+}
+
+h1 { 
+    font-size: 2.2rem; 
+    margin-bottom: 30px; 
+    font-weight: 700;
+}
+
+.buttons { 
+    display: flex; 
+    gap: 25px; 
+    justify-content: center; 
+    align-items: center;
+    min-height: 80px;
+}
+
+button {
+    padding: 15px 40px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    border-radius: 50px;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-transform: uppercase;
+}
+
+#yesBtn { 
+    background: var(--primary-pink); 
+    color: white;
+    box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
+}
+
+#yesBtn:hover {
+    transform: scale(1.1);
+}
+
+#noBtn { 
+    background-color: rgba(255, 255, 255, 0.9); 
+    color: #333; 
+    position: fixed; /* Bắt buộc để chạy tự do */
+    z-index: 999;
+    transition: all 0.2s ease-out; /* Giúp nút di chuyển mượt hơn */
+    /* Quan trọng: Ban đầu để nút ở vị trí này để không bị nhảy khi vừa load */
+    top: 50%;
+    left: 60%; 
+}
+
+#message { 
+    display: none; 
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.heart { 
+    color: var(--primary-pink); 
+    font-size: 80px; 
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
