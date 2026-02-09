@@ -51,34 +51,37 @@
     <div id="sadIcon">😢</div>
 
     <script>
-        const noBtn = document.getElementById('noBtn');
-        const yesBtn = document.getElementById('yesBtn');
-        const mainContent = document.getElementById('main-content');
-        const message = document.getElementById('message');
-        const sadIcon = document.getElementById('sadIcon');
+    const noBtn = document.getElementById('noBtn');
+    const yesBtn = document.getElementById('yesBtn');
+    const mainContent = document.getElementById('main-content');
+    const message = document.getElementById('message');
+    const sadIcon = document.getElementById('sadIcon');
 
-        // Hàm làm nút NO chạy lung tung
-        noBtn.addEventListener('mouseover', () => {
-            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-            
-            noBtn.style.left = `${x}px`;
-            noBtn.style.top = `${y}px`;
-        });
+    // Hàm làm nút NO chạy lung tung NHƯNG không ra ngoài màn hình
+    noBtn.addEventListener('mouseover', () => {
+        // Trừ đi kích thước nút để nó không bị lấp ló ở mép màn hình
+        const maxX = window.innerWidth - noBtn.offsetWidth - 20; 
+        const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+        
+        // Đảm bảo giá trị ngẫu nhiên tối thiểu là 10px để không sát mép trái/trên
+        const x = Math.max(10, Math.random() * maxX);
+        const y = Math.max(10, Math.random() * maxY);
+        
+        noBtn.style.left = `${x}px`;
+        noBtn.style.top = `${y}px`;
+    });
 
-        // Nếu bằng cách thần kỳ nào đó họ vẫn ấn được nút NO
-        noBtn.addEventListener('click', () => {
-            mainContent.style.display = 'none';
-            sadIcon.style.display = 'block';
-            alert("Ơ, sao cậu lại ấn được hay vậy... nhưng vẫn không được đâu! 😢");
-        });
+    // Xử lý khi ấn nút
+    noBtn.addEventListener('click', () => {
+        mainContent.style.display = 'none';
+        sadIcon.style.display = 'block';
+        alert("Vẫn không được đâu! 😢");
+    });
 
-        // Khi ấn nút YES
-        yesBtn.addEventListener('click', () => {
-            mainContent.style.display = 'none';
-            message.style.display = 'block';
-            // Có thể thêm hiệu ứng pháo hoa ở đây
-        });
-    </script>
+    yesBtn.addEventListener('click', () => {
+        mainContent.style.display = 'none';
+        message.style.display = 'block';
+    });
+</script>
 </body>
 </html>
