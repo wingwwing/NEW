@@ -64,14 +64,17 @@
             </div>
                 <div class="input-group" style="flex: 1;">
                 <label>⏰ And time?</label>
-                        <div style="display: flex; gap: 10px; align-items: center; justify-content: center;">
-                <input type="time" name="time_from" id="timeFrom" required 
+                    <div style="display: flex; gap: 10px; align-items: center; justify-content: center;">
+                <input type="time" id="timeFrom" required 
                     style="flex: 1; padding: 12px; border-radius: 12px; background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(168,85,247,0.4); font-size: 1rem;">
                 
                 <span style="color: #a855f7;">to</span>
 
-                <input type="time" name="time_to" id="timeTo" required 
+                <input type="time" id="timeTo" required 
                     style="flex: 1; padding: 12px; border-radius: 12px; background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(168,85,247,0.4); font-size: 1rem;">
+
+                <input type="hidden" name="From_Time" id="timeFromAMPM">
+                <input type="hidden" name="To_Time" id="timeToAMPM">
             </div>
             </div>
             

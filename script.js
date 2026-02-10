@@ -4,6 +4,23 @@ const dateDisplay = document.getElementById('dateDisplay');
 
 if (appointmentForm && dateDisplay) {
     appointmentForm.addEventListener('submit', function(e) {
+
+        // 1. Lấy giá trị từ 2 ô nhập time
+    const valFrom = document.getElementById('timeFrom').value;
+    const valTo = document.getElementById('timeTo').value;
+
+    // 2. Hàm chuyển đổi 24h -> 12h AM/PM
+    const formatAMPM = (time) => {
+        if (!time) return "";
+        let [h, m] = time.split(':');
+        let ampm = h >= 12 ? 'PM' : 'AM';
+        h = h % 12 || 12; // Chuyển 00 thành 12
+        return `${h}:${m} ${ampm}`;
+    };
+
+    // 3. Gán giá trị đã đẹp vào ô ẩn để Formspree gửi đi
+    document.getElementById('timeFromAMPM').value = formatAMPM(valFrom);
+    document.getElementById('timeToAMPM').value = formatAMPM(valTo);
     const dateValue = dateDisplay.value;
     const parts = dateValue.split('/');
     
@@ -157,15 +174,15 @@ if (appointmentForm && dateDisplay) {
             });
         }
     // Sự kiện khi ấn Yes
-    yesBtn.addEventListener('click', () => {
-        mainContent.style.display = 'none';
-        noBtn.style.display = 'none';
-        createHearts(); 
-        message.style.display = 'block';
-        if(myVideo) {
-        myVideo.muted = false; // Mở tiếng cho video mewkiss
-        myVideo.play();
-    }
+        yesBtn.addEventListener('click', () => {
+            mainContent.style.display = 'none';
+            noBtn.style.display = 'none';
+            createHearts(); 
+            message.style.display = 'block';
+            if(myVideo) {
+            myVideo.muted = false; // Mở tiếng cho video mewkiss
+            myVideo.play();
+        }
 
         // CHỜ 5 GIÂY (hoặc thời lượng vd mèo) rồi hiện 2 nút
         setTimeout(() => {
