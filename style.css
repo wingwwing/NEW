@@ -267,3 +267,40 @@ input[type="time"] {
     transform: translateY(1px); /* Nhấn xuống tạo cảm giác như nút thật */
     filter: brightness(0.9);
 }
+/* Tối ưu cho Mobile (Màn hình nhỏ hơn 600px) */
+@media (max-width: 600px) {
+    /* 1. Chữ "Let's go Harley" và "See you soon" */
+    h1 {
+        font-size: 2.2rem !important; /* Giảm size chữ để không bị tràn */
+        padding: 0 10px;
+    }
+
+    /* 2. Video phủ kín màn hình không bị méo */
+    video {
+        object-fit: cover !important; /* Quan trọng: Giúp video luôn đầy màn hình */
+        width: 100vw !important;
+        height: 100vh !important;
+    }
+
+    /* 3. Card chứa Form */
+    .container, #form-screen .form-container {
+        width: 90% !important; /* Để form không sát mép màn hình */
+        padding: 20px !important;
+    }
+
+    /* 4. Các nút bấm */
+    button {
+        width: 100% !important; /* Nút bấm to ra cho dễ chạm tay */
+        font-size: 1rem !important;
+    }
+
+    /* 5. Cụm thời gian From - To */
+    div[style*="display: flex"] {
+        flex-direction: column !important; /* Xếp chồng From và To lên nhau cho dễ nhìn */
+        gap: 15px !important;
+    }
+    
+    #timeFrom, #timeTo {
+        width: 100% !important;
+    }
+}
