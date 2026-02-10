@@ -70,12 +70,11 @@ button {
 #noBtn { 
     background-color: rgba(255, 255, 255, 0.9); 
     color: #333; 
-    position: fixed; /* Bắt buộc để chạy tự do */
+    position: relative; /* Giữ nguyên để nằm cạnh nút YES lúc đầu */
     z-index: 999;
-    transition: all 0.2s ease-out; /* Giúp nút di chuyển mượt hơn */
-    /* Quan trọng: Ban đầu để nút ở vị trí này để không bị nhảy khi vừa load */
-    top: 50%;
-    left: 60%; 
+    /* Sử dụng transition cho transform để có độ trễ mượt mà */
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    will-change: transform; /* Báo cho trình duyệt chuẩn bị tài nguyên GPU */
 }
 
 #message { 
@@ -98,4 +97,173 @@ button {
     0% { transform: scale(1); }
     50% { transform: scale(1.2); }
     100% { transform: scale(1); }
+}
+
+/* Định nghĩa lớp cho trái tim bay */
+.floating-heart {
+    position: fixed;
+    bottom: -50px; /* Xuất phát từ dưới màn hình */
+    color: #ff4d6d;
+    font-size: 20px;
+    user-select: none;
+    pointer-events: none;
+    z-index: 999;
+    animation: floatUp linear forwards;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Giao diện Form chuyên nghiệp - Tone Tím chủ đạo */
+/* Container chính với nền Aurora */
+#form-screen {
+    background: radial-gradient(circle at top left, #2d004d, #1a0033);
+    overflow: hidden;
+}
+
+/* Card Form với hiệu ứng Glassmorphism nâng cao */
+.form-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    border-radius: 30px;
+    padding: 40px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), 
+                inset 0 0 20px rgba(168, 85, 247, 0.1);
+    animation: slideUp 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(50px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.form-card h2 {
+    color: #f3e8ff;
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+    background: linear-gradient(to right, #e9d5ff, #a855f7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+}
+
+.form-subtitle {
+    color: #c084fc;
+    font-size: 0.9rem;
+    margin-bottom: 30px;
+}
+
+.input-group {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    color: #e9d5ff;
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+    margin-left: 5px;
+}
+
+.input-group input {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(168, 85, 247, 0.2);
+    padding: 14px 18px;
+    border-radius: 15px;
+    color: white;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.input-group input:focus {
+    border-color: #a855f7;
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);
+    outline: none;
+}
+
+/* Nút Submit hiệu ứng Neon */
+.submit-btn {
+    width: 100%;
+    padding: 16px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 15px;
+    background: linear-gradient(45deg, #7c3aed, #a855f7);
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.4s;
+    text-transform: uppercase;
+    box-shadow: 0 10px 20px rgba(124, 58, 237, 0.3);
+}
+
+.submit-btn:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 15px 30px rgba(168, 85, 247, 0.5);
+    filter: brightness(1.2);
+}
+
+.back-link {
+    background: none;
+    border: none;
+    color: rgba(233, 213, 255, 0.5);
+    margin-top: 25px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: 0.3s;
+}
+
+.back-link:hover {
+    color: #f3e8ff;
+    text-decoration: underline;
+}
+
+
+/* Đổi màu icon đồng hồ sang trắng/tím cho đẹp */
+input[type="time"]::-webkit-calendar-picker-indicator {
+    filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(241deg) brightness(98%) contrast(92%);
+    cursor: pointer;
+}
+
+/* Đảm bảo chữ trắng trên nền tối */
+input[type="time"] {
+    color-scheme: dark; /* Ép trình duyệt dùng giao diện tối cho bộ cuộn */
+}
+
+/* Hiệu ứng cho nút Let's Go và I'm too busy */
+#letsGoBtn, #busyBtn {
+    transition: all 0.3s ease; /* Giúp hiệu ứng chuyển đổi mượt mà */
+    cursor: pointer;
+}
+
+/* Khi di chuột vào (Hover) */
+#letsGoBtn:hover, #busyBtn:hover {
+    transform: translateY(-3px); /* Nút nhấc nhẹ lên một chút */
+    filter: brightness(1.2); /* Làm nút sáng lên 20% */
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.8), 
+                0 0 40px rgba(168, 85, 247, 0.4); /* Tạo hiệu ứng hào quang tím */
+}
+
+/* Khi nhấn giữ (Active) */
+#letsGoBtn:active, #busyBtn:active {
+    transform: translateY(1px); /* Nhấn xuống tạo cảm giác như nút thật */
+    filter: brightness(0.9);
 }

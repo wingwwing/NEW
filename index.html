@@ -16,43 +16,82 @@
         </div>
     </div>
 
-    <div id="message">
-        <h1>YAYYY! HIIIIIHI! 🥰</h1>
-        <div class="heart">❤️</div>
+    <div id="message" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999;">
+        <video id="myVideo" loop playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1;">
+        <source src="mewkiss.mp4" type="video/mp4">
+    </video>
+
+        <div style="position: relative; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(0,0,0,0.3);"> 
+            <h1 id="yay-text" style="color: white; font-size: 3rem; text-shadow: 2px 2px 10px rgba(0,0,0,0.5);">YAYYY! HIIIIIHI! 🥰</h1>
+            
+            <div id="final-choice" style="display: none; gap: 20px; margin-top: 20px;">
+                <button id="letsGoBtn" style="background: #a855f7; color: white; padding: 15px 30px; border-radius: 50px; border: none; cursor: pointer; font-weight: bold;">Let's Go! 🚀</button>
+                <button id="busyBtn" style="background: white; color: #333; padding: 15px 30px; border-radius: 50px; border: none; cursor: pointer; font-weight: bold;">But I'm too busy.. 🥺</button>
+            </div>
+        </div>
     </div>
 
-    <script>
-        const noBtn = document.getElementById('noBtn');
-        const yesBtn = document.getElementById('yesBtn');
-        const mainContent = document.getElementById('main-content');
-        const message = document.getElementById('message');
+    <div id="busy-screen" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: black; z-index: 10001; justify-content: center; align-items: center;">
+    <video id="videoBusy" loop playsinline style="width: 100%; height: 100%; object-fit: cover;">
+    <source src="busy_cat.mp4" type="video/mp4"> 
+    </video>
 
-        function moveButton() {
-        // Tính toán kích thước vùng an toàn
-        // Trừ đi kích thước nút và một khoảng lề (padding) 50px cho chắc chắn
-        const padding = 50;
-        const maxX = window.innerWidth - noBtn.offsetWidth - padding;
-        const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+    <div id="busy-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.2); opacity: 0; transition: opacity 3s ease;">
+        <h1 style="color: white; font-size: 4rem; font-family: 'Segoe UI', sans-serif; text-shadow: 0 0 20px rgba(168, 85, 247, 0.8);">See you soon... 💜</h1>
+    </div>
+</div>
+    
 
-        // Tính toán tọa độ ngẫu nhiên mới trong phạm vi màn hình
-        // Math.floor giúp lấy số nguyên để trình duyệt render chính xác hơn
-        const randomX = Math.floor(Math.random() * (maxX - padding) + padding);
-        const randomY = Math.floor(Math.random() * (maxY - padding) + padding);
+<div id="form-screen" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 10001; align-items: center; justify-content: center;">
+    <div class="form-card">
+        <h2>Let's go Harley 💜</h2>
+        <p class="form-subtitle">how about your schedule?</p>
+        
+        <form action="https://formspree.io/f/mwvnvvqo" method="POST">
+            <div class="input-group">
+                <label>📅 About date? </label>
+                <div class="input-wrapper" style="position: relative;">
+                <input type="text" 
+                       
+                    id="dateDisplay" 
+                    name="date"  placeholder="dd/mm/yyyy" 
+                    inputmode="numeric" 
+                    required 
+                    maxlength="10"
+       style="width: 100%; padding: 12px; border-radius: 10px; background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(168,85,247,0.4);">
+        <input type="hidden" name="date" id="dateSystem">
+    </div>
+            </div>
+                <div class="input-group" style="flex: 1;">
+                <label>⏰ And time?</label>
+                        <div style="display: flex; gap: 10px; align-items: center; justify-content: center;">
+                <input type="time" name="time_from" id="timeFrom" required 
+                    style="flex: 1; padding: 12px; border-radius: 12px; background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(168,85,247,0.4); font-size: 1rem;">
+                
+                <span style="color: #a855f7;">to</span>
 
-        // Gán tọa độ mới trực tiếp vào style
-        noBtn.style.left = randomX + 'px';
-        noBtn.style.top = randomY + 'px';
-    }
-        noBtn.addEventListener('mouseover', moveButton);
-        noBtn.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            moveButton();
-        });
-        yesBtn.addEventListener('click', () => {
-            mainContent.style.display = 'none';
-            message.style.display = 'block';
-            noBtn.style.display = 'none';
-        });
-    </script>
+                <input type="time" name="time_to" id="timeTo" required 
+                    style="flex: 1; padding: 12px; border-radius: 12px; background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(168,85,247,0.4); font-size: 1rem;">
+            </div>
+            </div>
+            
+            
+            <div class="input-group">
+                <label>📍 Where you wanna go?</label>
+                <input type="text" name="place" placeholder="Ex: Phố đi bộ, quán cafe..." required>
+            </div>
+            
+            <button type="submit" class="submit-btn">SEND TO BBI 💌</button>
+        </form>
+        
+        <button class="back-link" onclick="document.getElementById('form-screen').style.display='none'">BACK</button>
+    </div>
+</div>
+
+
+    <script src="script.js"></script>
+        
+
+
 </body>
 </html>
