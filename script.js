@@ -2,11 +2,11 @@
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768) {
     
     // Hiện thông báo xác nhận
-    const userChoice = confirm("Hãy mở link bằng máy tính để có trải nghiệm tốt nhất nha! Nhấn OK để thoát, Cancel để tiếp tục xem trên điện thoại.");
+    const userChoice = confirm("Hãy mở link bằng máy tính để có trải nghiệm tốt nhất nha!");
 
     if (userChoice) {
         // Nếu nhấn OK -> Thoát (chuyển hướng sang trang khác hoặc đóng tab)
-        window.location.href = "https://www.google.com"; // Hoặc link bất kỳ Taylor muốn
+        window.location.href = "https://www.youtube.com/watch?v=MJE8tqRFPWs&list=RDMJE8tqRFPWs&start_radio=1"; // Hoặc link bất kỳ Taylor muốn
     } else {
         // Nếu nhấn Cancel -> Tiếp tục ở lại trang
         console.log("Harley quyết định xem trên điện thoại.");
