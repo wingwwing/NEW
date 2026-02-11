@@ -1,11 +1,12 @@
-// Kiểm tra nếu người dùng dùng điện thoại (dựa vào độ rộng màn hình hoặc userAgent)
-if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768) {
-    
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768) {
+
     // Hiện thông báo xác nhận
+    
     const userChoice = confirm("Hãy mở link bằng máy tính để có trải nghiệm tốt nhất nha!");
 
     if (userChoice) {
         // Nếu nhấn OK -> Thoát (chuyển hướng sang trang khác hoặc đóng tab)
+       
         window.location.href = "https://www.youtube.com/watch?v=MJE8tqRFPWs&list=RDMJE8tqRFPWs&start_radio=1"; // Hoặc link bất kỳ Taylor muốn
     } else {
         // Nếu nhấn Cancel -> Tiếp tục ở lại trang
@@ -37,7 +38,7 @@ if (appointmentForm && dateDisplay) {
     document.getElementById('timeToAMPM').value = formatAMPM(valTo);
     const dateValue = dateDisplay.value;
     const parts = dateValue.split('/');
-    
+
     if (parts.length === 3) {
         const d = parseInt(parts[0]);
         const m = parseInt(parts[1]);
@@ -57,7 +58,7 @@ if (appointmentForm && dateDisplay) {
             dateDisplay.focus();
             return;
         } 
-        
+
         if (isMonthInvalid) {
             e.preventDefault();
             alert("tháng kì dị"); // Sai tháng
@@ -88,7 +89,7 @@ if (appointmentForm && dateDisplay) {
 }
 
 // ... Các đoạn code moveButton, createHearts giữ nguyên bên dưới ...
-        
+
         const noBtn = document.getElementById('noBtn');
         const yesBtn = document.getElementById('yesBtn');
         const mainContent = document.getElementById('main-content');
@@ -113,7 +114,7 @@ if (appointmentForm && dateDisplay) {
                 value = value.slice(0, 2) + ':' + value.slice(2, 4);
             }
             e.target.value = value;
-            
+
         // Gộp giá trị để gửi về hệ thống
             finalTimeRange.value = `Từ ${timeFrom.value} đến ${timeTo.value}`;
         }
@@ -124,7 +125,7 @@ if (appointmentForm && dateDisplay) {
         // Thêm Validation vào sự kiện submit form
         appointmentForm.addEventListener('submit', function(e) {
             const timePattern = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/;
-            
+
             if (!timePattern.test(timeFrom.value) || !timePattern.test(timeTo.value)) {
                 e.preventDefault();
                 alert("Hãy nhập đúng định dạng giờ đi mò! (hh:mm)");
@@ -162,8 +163,8 @@ if (appointmentForm && dateDisplay) {
             moveButton();
         });
 
-        
-        
+
+
         // Sự kiện khi ấn Let's Go (Chuyển sang màn hình Form)
             letsGoBtn.addEventListener('click', () => {
 
@@ -231,7 +232,7 @@ if (appointmentForm && dateDisplay) {
                 // Ẩn các màn hình phụ
                 formScreen.style.display = 'none';
                 busyScreen.style.display = 'none';
-                
+
                 // Tắt video Busy nếu đang chạy
                 if (videoBusy) videoBusy.pause();
 
@@ -240,7 +241,7 @@ if (appointmentForm && dateDisplay) {
                     myVideo.muted = false; // Bật lại tiếng
                     myVideo.play();        // Tiếp tục chạy từ điểm đã dừng
                 }
-                
+
                 // Reset chữ "See you soon" nếu muốn quay lại lần sau vẫn mờ mờ hiện lên
                 const busyOverlay = document.getElementById('busy-overlay');
                 if (busyOverlay) busyOverlay.style.opacity = '0';
@@ -262,17 +263,17 @@ if (appointmentForm && dateDisplay) {
                 const heart = document.createElement('div');
                 heart.className = 'floating-heart';
                 heart.innerHTML = '💜';
-                
+
                 // Vị trí ngang ngẫu nhiên
                 heart.style.left = Math.random() * 100 + 'vw';
-                
+
                 // Thời gian bay ngẫu nhiên từ 3s đến 6s
                 const duration = Math.random() * 3 + 3;
                 heart.style.animationDuration = duration + 's';
-                
+
                 // Kích thước ngẫu nhiên
                 heart.style.fontSize = Math.random() * 20 + 20 + 'px';
-                
+
                 document.body.appendChild(heart);
 
                 // Xóa trái tim sau khi bay xong để tránh nặng máy
