@@ -1,3 +1,17 @@
+// Kiểm tra nếu người dùng dùng điện thoại (dựa vào độ rộng màn hình hoặc userAgent)
+if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768) {
+    
+    // Hiện thông báo xác nhận
+    const userChoice = confirm("Hãy mở link bằng máy tính để có trải nghiệm tốt nhất nha! Nhấn OK để thoát, Cancel để tiếp tục xem trên điện thoại.");
+
+    if (userChoice) {
+        // Nếu nhấn OK -> Thoát (chuyển hướng sang trang khác hoặc đóng tab)
+        window.location.href = "https://www.google.com"; // Hoặc link bất kỳ Taylor muốn
+    } else {
+        // Nếu nhấn Cancel -> Tiếp tục ở lại trang
+        console.log("Harley quyết định xem trên điện thoại.");
+    }
+}
 // Lấy thẻ form
 const appointmentForm = document.querySelector('form');
 const dateDisplay = document.getElementById('dateDisplay');
