@@ -304,3 +304,54 @@ input[type="time"] {
         width: 100% !important;
     }
 }
+    /* Thiết lập chung cho sticker */
+.capoo-sticker {
+    position: absolute;
+    width: 60px; /* Độ lớn của sticker */
+    height: auto;
+    z-index: 10;
+    pointer-events: none; /* Để không bị vướng khi Harley ký tên */
+    animation: bounce 2s infinite ease-in-out;
+}
+
+/* Vị trí 4 góc */
+.top-left {
+    top: -30px;
+    left: -30px;
+    transform: rotate(-15deg);
+}
+
+.top-right {
+    top: -30px;
+    right: -30px;
+    transform: rotate(15deg) scaleX(-1); /* Quay mặt ngược lại */
+}
+
+.bottom-left {
+    bottom: -20px;
+    left: -20px;
+    animation-delay: 0.5s;
+}
+
+/* Hiệu ứng nhún nhảy cho đáng yêu */
+@keyframes bounce {
+    0%, 100% { transform: translateY(0) rotate(-15deg); }
+    50% { transform: translateY(-10px) rotate(-10deg); }
+}
+
+/* Riêng cho con bên phải thì cần giữ scaleX(-1) để không bị lật ngược animation */
+.top-right {
+    animation: bounceRight 2s infinite ease-in-out;
+}
+
+@keyframes bounceRight {
+    0%, 100% { transform: translateY(0) rotate(15deg) scaleX(-1); }
+    50% { transform: translateY(-10px) rotate(10deg) scaleX(-1); }
+}
+
+.confirm-style::after {
+    content: "✓"; /* Dấu tích thanh mảnh hơn */
+    margin-left: 8px;
+    filter: drop-shadow(0 0 5px #fff); /* Tạo hiệu ứng hào quang trắng */
+    font-size: 1.2rem;
+}

@@ -37,17 +37,19 @@
     </video>
 
     <div id="busy-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.2); opacity: 0; transition: opacity 3s ease;">
-        <h1 style="color: white; font-size: 4rem; font-family: 'Segoe UI', sans-serif; text-shadow: 0 0 20px rgba(168, 85, 247, 0.8);">See you soon... 💜</h1>
+        <h1 style="color: white; font-size: 4rem; font-family: 'Segoe UI', sans-serif; text-shadow: 0 0 20px rgba(168, 85, 247, 0.8);">but but... 🥺</h1>
     </div>
 </div>
     
 
 <div id="form-screen" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 10001; align-items: center; justify-content: center;">
     <div class="form-card">
-        <h2>Let's go 💜</h2>
-        <p class="form-subtitle">how about your schedule?</p>
+        <h2>Let's go Harley 💜</h2>
+        <p class="form-subtitle">When can I see you?</p>
         
-        <form action="https://formspree.io/f/mwvnvvqo" method="POST">
+        <form id="appointmentForm"
+            action="https://formspree.io/f/mwvnvvqo"
+            method="POST">
             <div class="input-group">
                 <label>📅 About date? </label>
                 <div class="input-wrapper" style="position: relative;">
@@ -81,10 +83,10 @@
             
             <div class="input-group">
                 <label>📍 Where you wanna go?</label>
-                <input type="text" name="place" placeholder="Ex: Phố đi bộ, quán cafe..." required>
+                <input type="text" name="place" placeholder="Ex: đi xe căng hải một vòng hồ Tây, đi ngủ..." required>
             </div>
             
-            <button type="submit" class="submit-btn">SEND TO BBI 💌</button>
+            <button type="submit" class="submit-btn">Next 💌</button>
         </form>
         
         <button class="back-link" onclick="document.getElementById('form-screen').style.display='none'">BACK</button>
@@ -92,9 +94,90 @@
 </div>
 
 
-    <script src="script.js"></script>
+
+
+    
+<div id="contractModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); z-index: 10000; align-items: center; justify-content: center; backdrop-filter: blur(8px);">
+   <div id="paper" style="background: #fdf5e6; width: 85%; max-width: 500px; padding: 40px; border-radius: 5px; box-shadow: 0 20px 50px rgba(0,0,0,0.4); position: relative; font-family: 'Courier New', Courier, monospace; color: #4b2c20; border: 1px solid #d2b48c;">
         
+        <div class="before-sign">
+            <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTV6dHl6YmI3eDNsNDIzc3RzYjRpcmY0Ym53OGFrY3piOHh0bHZsciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/4TmsyEHp9Ksw8rEyR8/giphy.gif" class="capoo-sticker top-left" style="width: 100px;">
+            <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExcWtkbThnanp5aWFlajdsNGVjYWM5NDJpa3pjMThxcTgyM3YzNjgxbyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/i7vpymS7uRIIvPUUlq/giphy.gif" class="capoo-sticker top-right" style="width: 150px;">
+        </div>
 
+        <div class="after-sign" style="display: none;">
+            <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExdGhwNWo4a3J1bXRuenhiYnIwZjFicXF3Nm04czlpbDg3aXJiZGpsbiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l4FGzTDDUZ3OPorFS/giphy.gif" class="capoo-sticker top-left" style="width: 150px;">
+            <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExeDl1aHhkNW81dDA4c2kwbHdxNzM5cjdlYTRjbWxjOGVhcXlhMWtxMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/KyEtlYiutRHVC68Ess/giphy.gif" class="capoo-sticker top-right" style="width: 150px;">
+            <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExc2lqNzVqYjc1enk0NWNkdnBvMmlnYWlicndmNnk3cXRyeGp0eGtyZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3ov9k0OmfNYeLdK4gg/giphy.gif" class="capoo-sticker bottom-left" style="width: 120px;">
+        </div>
+        
+        <h2 id="contractTitle" style="text-align: center; border-bottom: 2px solid #4b2c20; padding-bottom: 10px;">MYSTERY DOCUMENT</h2>
+        
+        <div id="contractContent" style="margin-top: 20px; line-height: 1.6; font-size: 1.1rem; min-height: 100px;">
+            Sign your name below to see the surprise I have for you… ✨
+        </div>
+        
+        <div style="margin-top: 50px; text-align: right;">
+            <p style="margin-bottom: 5px;">Signature:</p>
+            <canvas id="sig-canvas" width="200" height="80" style="border-bottom: 1px solid #4b2c20; cursor: crosshair; touch-action: none;"></canvas>
+            <p id="harleyName" style="font-style: italic; margin-top: 5px; opacity: 0.7;">Harley's space</p>
+        </div>
 
+        <button id="confirmSigBtn" class="luxury-btn confirm-style">
+            Confirm
+        </button>
+
+        <button id="closeContract" class="luxury-btn love-style">
+            Click here, please! 💜
+        </button>
+
+        <style>
+        .luxury-btn {
+            display: none;
+            margin: 25px auto 0;
+            padding: 14px 40px;
+            border: none;
+            color: white;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background-size: 200% auto;
+            transition: all 0.3s ease;
+            animation: gradientShift 3s ease infinite;
+        }
+
+        /* Màu đặc sắc cho nút Xác nhận */
+        .confirm-style {
+            background: linear-gradient(45deg, #f093fb 0%, #f5576c 50%, #a855f7 100%);
+            box-shadow: 0 10px 20px rgba(245, 87, 108, 0.4);
+        }
+
+        /* Màu đặc sắc cho nút Mãi iu */
+        .love-style {
+            background: linear-gradient(45deg, #a855f7 0%, #ec4899 50%, #764ba2 100%);
+            box-shadow: 0 10px 20px rgba(168, 85, 247, 0.4);
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .luxury-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        .luxury-btn:active {
+            transform: translateY(1px);
+        }
+        </style>
+            </div>
+</div>
+<script src="script.js" defer></script>
 </body>
 </html>
