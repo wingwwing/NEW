@@ -1,3 +1,21 @@
+/* =========================
+   THÔNG BÁO ĐIỀU HƯỚNG THIẾT BỊ
+========================== */
+window.onload = function() {
+    // Kiểm tra nếu người dùng đang dùng thiết bị di động
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+    if (isMobile) {
+        const userChoice = confirm("Dùng máy tính để có trải nghiệm tốt hơn nhé! ✨");
+        
+        if (userChoice) {
+            // Nếu bấm OK: Chuyển sang link Taylor tự chọn (ví dụ link Facebook hoặc ảnh)
+            window.location.href = "https://www.youtube.com/watch?v=K_o-wEY-f5I&list=RDK_o-wEY-f5I&start_radio=1"; 
+        } 
+        // Nếu bấm Cancel: Trình duyệt tự động đóng thông báo và tiếp tục ở điện thoại
+    }
+};
+
 document.addEventListener("DOMContentLoaded", () => {
 
     /* =========================
@@ -237,99 +255,88 @@ if (appointmentForm) {
     ========================== */
     /* Tìm và thay thế đoạn SIGNATURE CANVAS bằng logic mới này */
     /* Tìm đến phần SIGNATURE CANVAS và thay thế bằng đoạn này */
-if (canvas) {
-    const ctx = canvas.getContext("2d");
-    let drawing = false;
-    let isLocked = false;
-    const confirmBtn = document.getElementById("confirmSigBtn");
-
-    const getPos = (e) => {
-        const rect = canvas.getBoundingClientRect();
-        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-        return { x: clientX - rect.left, y: clientY - rect.top };
-    };
-
-    const start = (e) => { if (isLocked) return; drawing = true; ctx.beginPath(); const pos = getPos(e); ctx.moveTo(pos.x, pos.y); };
-    const draw = (e) => {
-        if (!drawing || isLocked) return;
-        if (!drawing) return;
-        const pos = getPos(e);
-        ctx.lineWidth = 2; ctx.lineCap = "round"; ctx.strokeStyle = "#4b2c20"; // Nét mực nâu cũ
-        ctx.lineTo(pos.x, pos.y); ctx.stroke();
-    };
-    /* Trong phần xử lý chữ ký (stop function) */
-const stop = () => { 
-    if (drawing) {
-        drawing = false; 
-        const confirmBtn = document.getElementById("confirmSigBtn");
-        confirmBtn.style.display = "block"; // Nút xác nhận hiện ra sau khi ký
-    }
-};
-
-/* Trong phần click vào nút confirmSigBtn */
-confirmBtn.addEventListener("click", () => {
-    isLocked = true; // Khóa canvas sau khi ký
-    confirmBtn.style.display = "none";
-    
-    // 1. THÊM MỚI: Hoán đổi sticker (Yêu cầu ít thay đổi nhất)
-    const bSign = document.querySelector(".before-sign");
-    const aSign = document.querySelector(".after-sign");
-    if (bSign) bSign.style.display = "none";
-    if (aSign) aSign.style.display = "block";
-    
-    // Đổi nội dung hợp đồng
-    document.getElementById("contractTitle").innerText = "DATE CONTRACT";
-    document.getElementById("contractContent").innerHTML = `<strong>Condition:</strong> i will hold ur hand and bring you flower, us gonna hug and i will kiss my cutie :333`;
-    
-    // Hiện nút Mãi iu
-    const closeBtn = document.getElementById("closeContract");
-    closeBtn.style.display = "block";
-    
-    // Hiệu ứng pháo hoa bùng nổ
-    confetti({
-        particleCount: 180,
-        spread: 100,
-        origin: { y: 0.6 },
-        colors: ['#a855f7', '#ec4899', '#ffffff']
-    });
-});
-
-    canvas.addEventListener("mousedown", start);
-    canvas.addEventListener("mousemove", draw);
-    window.addEventListener("mouseup", stop);
-    canvas.addEventListener("touchstart", start);
-    canvas.addEventListener("touchmove", (e) => { e.preventDefault(); draw(e); });
-    canvas.addEventListener("touchend", stop);
-
-    // XỬ LÝ KHI NHẤN "XÁC NHẬN ĐÃ KÝ"
-    confirmBtn.addEventListener("click", () => {
-        confirmBtn.style.display = "none"; // Ẩn nút xác nhận
-        
-        // Thay đổi nội dung sang Hợp đồng thật
-        document.getElementById("contractTitle").innerText = "DATE CONTRACT";
-        document.getElementById("contractContent").innerHTML = `<strong>Condition:</strong> I will hold ur hand and bring you flower, us gonna hug and i will kiss my cutie :333`;
-        
-        // Hiện nút chốt hạ
-        document.getElementById("closeContract").style.display = "block";
-        
-        // Bắn pháo hoa rực rỡ khi lộ bí mật
-        confetti({
-            particleCount: 150,
-            spread: 80,
-            origin: { y: 0.6 },
-            colors: ['#a855f7', '#ffffff', '#fdf5e6']
-        });
-    });
-}
-
-    /* =========================
-       FINAL SUBMIT
+/* =========================
+       SIGNATURE CANVAS & FINAL SUBMIT (Bản Fix Gửi Ảnh)
     ========================== */
-    closeContractBtn?.addEventListener("click", () => {
-        contractModal.style.display = "none";
-        alert("Deal sealed — no canceling! 💜");
-        appointmentForm.submit(); // 👉 Gửi mail thật sau khi ký
-    });
+    if (canvas) {
+        const ctx = canvas.getContext("2d");
+        let drawing = false;
+        let isLocked = false;
+        const confirmBtn = $("confirmSigBtn");
+        const closeBtn = $("closeContract");
 
-});
+        const getPos = (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            return { x: clientX - rect.left, y: clientY - rect.top };
+        };
+
+        const start = (e) => { if (isLocked) return; drawing = true; ctx.beginPath(); const pos = getPos(e); ctx.moveTo(pos.x, pos.y); };
+        const draw = (e) => {
+            if (!drawing || isLocked) return;
+            const pos = getPos(e);
+            ctx.lineWidth = 2; ctx.lineCap = "round"; ctx.strokeStyle = "#4b2c20";
+            ctx.lineTo(pos.x, pos.y); ctx.stroke();
+        };
+        const stop = () => { if (drawing) { drawing = false; confirmBtn.style.display = "block"; } };
+
+        canvas.addEventListener("mousedown", start);
+        canvas.addEventListener("mousemove", draw);
+        window.addEventListener("mouseup", stop);
+        canvas.addEventListener("touchstart", start);
+        canvas.addEventListener("touchmove", (e) => { e.preventDefault(); draw(e); });
+        canvas.addEventListener("touchend", stop);
+
+        // 1. XỬ LÝ KHI NHẤN "CONFIRM"
+        confirmBtn.addEventListener("click", () => {
+            isLocked = true; // Khóa không cho ký thêm
+            confirmBtn.style.display = "none";
+            
+            // Hoán đổi sticker
+            const bSign = document.querySelector(".before-sign");
+            const aSign = document.querySelector(".after-sign");
+            if (bSign) bSign.style.display = "none";
+            if (aSign) aSign.style.display = "block";
+            
+            // Đổi nội dung hợp đồng
+            $("contractTitle").innerText = "DATE CONTRACT 🎀";
+            $("contractContent").innerHTML = `<strong>Condition:</strong> I will hold your hand and bring you a flower. We’re gonna hug, and I’ll kiss my cutie.:33333`;
+            
+            // Hiện nút chốt hạ
+            closeBtn.style.display = "block";
+            
+            // Bắn pháo hoa
+            confetti({ particleCount: 180, spread: 100, origin: { y: 0.6 }, colors: ['#a855f7', '#ec4899', '#ffffff'] });
+        });
+
+        // 2. XỬ LÝ KHI NHẤN NÚT CUỐI CÙNG (CHỤP ẢNH & GỬI MAIL)
+        closeBtn.addEventListener("click", () => {
+            closeBtn.innerText = "Sending... 💌";
+            closeBtn.disabled = true;
+
+            const paperElement = $("paper");
+            
+            // Chụp ảnh tờ giấy hợp đồng
+            html2canvas(paperElement, {
+                backgroundColor: "#fdf5e6",
+                useCORS: true,
+                scale: 2 // Cho ảnh nét hơn
+            }).then(canvas => {
+                // Thay vì dùng image/png, hãy dùng image/jpeg với chất lượng 0.5
+                const imageData = canvas.toDataURL("image/jpeg", 0.5);
+                const imgInput = $("contractImageInput");
+                if (imgInput) imgInput.value = imageData;
+
+                // Thông báo cuối cùng trước khi gửi
+                alert("Deal sealed — no canceling! 💜");
+                
+                // Gửi form đi
+                if (appointmentForm) appointmentForm.submit();
+            }).catch(err => {
+                console.error("Lỗi chụp ảnh, vẫn gửi form:", err);
+                appointmentForm.submit();
+            });
+        });
+    }
+}); // Kết thúc DOMContentLoaded
